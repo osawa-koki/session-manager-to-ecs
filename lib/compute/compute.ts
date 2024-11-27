@@ -23,7 +23,7 @@ export default class ComputeStack extends cdk.Stack {
 
     const cluster = new ecs.Cluster(this, 'FargateCluster', {
       vpc,
-      clusterName: 'EcsCluster',
+      clusterName: process.env.ECS_CLUSTER_NAME!,
     });
 
     const taskDefinition = new ecs.FargateTaskDefinition(this, 'FargateTaskDef', {
@@ -49,11 +49,23 @@ export default class ComputeStack extends cdk.Stack {
         resources: [`arn:aws:ecr:${this.region}:${this.account}:repository/${process.env.ECR_REPOSITORY_NAME!}`]
       })
     );
+    taskDefinition.addToTaskRolePolicy(
+      new iam.PolicyStatement({
+        effect: iam.Effect.ALLOW,
+        actions: [
+          "ssmmessages:CreateControlChannel",
+          "ssmmessages:CreateDataChannel",
+          "ssmmessages:OpenControlChannel",
+          "ssmmessages:OpenDataChannel"
+        ],
+        resources: [`arn:aws:ssm:${this.region}:${this.account}:session/*`]
+      })
+    );
 
     const container = taskDefinition.addContainer('WebContainer', {
       image: ecs.ContainerImage.fromRegistry(`${this.account}.dkr.ecr.${this.region}.amazonaws.com/${process.env.ECR_REPOSITORY_NAME!}`),
       logging: ecs.LogDrivers.awsLogs({ streamPrefix: 'FargateWebApp' }),
-      containerName: 'EcsContainer',
+      containerName: process.env.ECS_CONTAINER_NAME!,
     });
 
     container.addPortMappings({
@@ -78,6 +90,7 @@ export default class ComputeStack extends cdk.Stack {
           weight: 1,
         },
       ],
+      enableExecuteCommand: true,
     });
 
     const scaling = fargateService.service.autoScaleTaskCount({
