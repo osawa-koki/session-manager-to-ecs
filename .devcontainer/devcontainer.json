@@ -21,7 +21,7 @@
   "forwardPorts": [],
 
   // Uncomment the next line to run commands after the container is created.
-  "postCreateCommand": "cat /etc/os-release && node --version && npm install",
+  "postCreateCommand": "cat /etc/os-release && node --version && npm install && chmod +x connect.sh",
 
   // Configure tool-specific properties.
   "customizations": {
