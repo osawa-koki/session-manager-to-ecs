@@ -2,6 +2,10 @@
 
 🎨🎨🎨 Session Managerを使ってECSに接続してみる！  
 
+[![ci](https://github.com/osawa-koki/session-manager-to-ecs/actions/workflows/ci.yml/badge.svg)](https://github.com/osawa-koki/session-manager-to-ecs/actions/workflows/ci.yml)
+[![cd](https://github.com/osawa-koki/session-manager-to-ecs/actions/workflows/cd.yml/badge.svg)](https://github.com/osawa-koki/session-manager-to-ecs/actions/workflows/cd.yml)
+[![Dependabot Updates](https://github.com/osawa-koki/session-manager-to-ecs/actions/workflows/dependabot/dependabot-updates/badge.svg)](https://github.com/osawa-koki/session-manager-to-ecs/actions/workflows/dependabot/dependabot-updates)
+
 ![成果物](./fruit.gif)  
 
 ## 実行方法
