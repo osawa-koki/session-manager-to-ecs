@@ -38,6 +38,23 @@ GitHub Actionsでデプロイするためには、以下のシークレットを
 
 ## デプロイ後の確認方法
 
+まずは、プラグインをインストールします。  
+
+```shell
+# MacOSの場合
+brew install aws-session-manager-plugin
+
+# Linuxの場合 (arm64)
+curl "https://s3.amazonaws.com/session-manager-downloads/plugin/latest/ubuntu_arm64/session-manager-plugin.deb" -o "session-manager-plugin.deb"
+dpkg -i session-manager-plugin.deb
+rm session-manager-plugin.deb
+
+# Linuxの場合 (x86_64)
+curl "https://s3.amazonaws.com/session-manager-downloads/plugin/latest/ubuntu_64bit/session-manager-plugin.deb" -o "session-manager-plugin.deb"
+dpkg -i session-manager-plugin.deb
+rm session-manager-plugin.deb
+```
+
 以下のコマンドでECSに接続します。  
 
 ```shell
